@@ -16,14 +16,15 @@ pipeline {
                 sh 'docker build -t java .'
             }
         }
-      stage('Push to Docker Registry') {
+	 stage('Publish image to Docker Hub') {
+          
             steps {
-                withCredentials([usernamePassword(credentialsId: '', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-		    echo "Docker Username: $DOCKER_USERNAME"
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker push $DOCKER_IMAGE_NAME"
-                }
-            }
+        withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+          sh  'docker push 79915010/test:latest'
+          sh  'docker push 79915010/test:$BUILD_NUMBER' 
+        }
+                  
+          }
         }
     }
 }
