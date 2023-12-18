@@ -16,6 +16,5 @@ pipeline {
                 sh 'docker build -t java .'
             }
         }
-
-
+    }
 }
