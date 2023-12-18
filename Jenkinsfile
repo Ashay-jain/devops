@@ -19,6 +19,7 @@ pipeline {
       stage('Push to Docker Registry') {
             steps {
                 withCredentials([usernamePassword(credentialsId: '', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+		    echo "Docker Username: $DOCKER_USERNAME"
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     sh "docker push $DOCKER_IMAGE_NAME"
                 }
