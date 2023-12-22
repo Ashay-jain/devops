@@ -13,14 +13,14 @@ pipeline {
         stage('Dockerize') {
             steps {
                 // Build Docker image and tag it
-                sh 'docker build -t 79915010/test:latest .'
+                sh 'docker build -t dockerhub-id/test:latest .'
             }
         }
 	 stage('Publish image to Docker Hub') {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push 79915010/test:latest' 
+          sh  'docker push dockerhub-id/test:latest' 
         }
                   
           }
