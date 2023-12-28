@@ -14,7 +14,7 @@ resource "aws_security_group" "allow_tls" {
   description = "Allow TLS inbound traffic"
 
   dynamic "ingress" {
-    for_each = [80, 443, 3306, 8080,22]
+    for_each = var.ports
     iterator = port
     content {
       description = "TLS from VPC"
@@ -45,15 +45,30 @@ output "awssgoutsgid" {
 
 #creating instance
 resource "aws_instance" "firstec2" {
-  ami           = "ami-03f4878755434977f"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.instance_type
   key_name = "${aws_key_pair.tfkey.key_name}"
   tags = {
     Name = "tf-aj1"
   }
   vpc_security_group_ids = [ "${aws_security_group.allow_tls.id}"   ]
 }
-#outputing the public ip of instance  
+#outputing the public ip elastic ip of instance  
 output "publicip" {
-  value = aws_instance.firstec2.public_ip
+  value = aws_eip.eip.public_ip
+}
+
+
+#assgining elastic ip to ec2 instance 
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.firstec2.id
+  allocation_id = aws_eip.eip.id
+}
+
+resource "aws_eip" "eip" {
+  domain = "vpc"
+  tags = {
+    Name = "TF1-ip"
+  }
 }
