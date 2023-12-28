@@ -51,7 +51,12 @@ resource "aws_instance" "firstec2" {
   tags = {
     Name = "tf-aj1"
   }
-  vpc_security_group_ids = [ "${aws_security_group.allow_tls.id}"   ]
+  vpc_security_group_ids = ["${aws_security_group.allow_tls.id}"]
+  user_data = <<-EOF
+                #!/bin/bash
+                sudo apt update -y
+                sudo apt install nginx -y
+                EOF
 }
 #outputing the public ip elastic ip of instance  
 output "publicip" {
