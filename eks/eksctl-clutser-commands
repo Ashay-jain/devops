@@ -1,0 +1,1 @@
+eksctl create cluster --name testeks --region ap-south-1 --nodegroup-name testeks --instance-types t2.micro --nodes 2 --nodes-min 2 --nodes-mx 4 --node-volume-size 30 --node-volume-type gp2 --instance-name testeks

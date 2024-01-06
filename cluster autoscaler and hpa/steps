@@ -1,0 +1,7 @@
+eksctl create cluster --name testeks --region ap-south-1 --nodegroup-name testeks --instance-types t2.medium --nodes 2 --nodes-min 2 --nodes-max 4 --node-volume-size 30 --node-volume-type gp2 --instance-name testeks
+1. after creating eks cluster with ekstl or console or with terraform
+2. install metric server from aws docs https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html
+3. Install eks cluster auto scaler from aws for autodiscovery kubectl apply -f examples/cluster-autoscaler-autodiscover.yaml
+4. with eksctl  command it already create the nodegroup and necessary things,
+5. rename the cluster in a cluster-autodiscover.yaml
+6. added the ec2access role, for this example i have added the ec2 full access role, search in iam role with clustername and find the role and add the permission to it.
