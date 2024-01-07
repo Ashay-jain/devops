@@ -1,12 +1,11 @@
 #!/bin/bash
 
-echo "searching for all .sh files"
-sleep 5
+echo "type no. 1"
+read a
+echo "type no. 2"
+read b
 
-for i in *.sh
-do
-	echo " file name is ${i}"
-done
+c=$(($a + $b))
 
-
+echo " the sum of two no. is ${c}"
 
