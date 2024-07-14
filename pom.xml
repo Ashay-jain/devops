@@ -17,13 +17,11 @@
   </dependencies>
   <build>
     <plugins>
-    <plugins>
+ 
     <plugin>
       <artifactId>maven-war-plugin</artifactId>
       <version>3.2.2</version>
     </plugin>
-
-
       
       <plugin>
         <!-- Build an executable JAR -->
