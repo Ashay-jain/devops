@@ -2,7 +2,7 @@ name: Node.js CI/CD to ECR
 
 on:
   push:
-    branches: [ ci-github-cd-argo ]
+    branches: [ "ci-github-cd-argo" ]
 
 jobs:
   build-test-push:
