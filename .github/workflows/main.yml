@@ -53,3 +53,22 @@ jobs:
           IMAGE_TAG=${GITHUB_SHA::8}
           docker push ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
           docker push ${{ secrets.ECR_REPOSITORY }}:latest
+# 9️⃣ Update deployment.yaml in-place
+      - name: Update deployment.yaml with new image tag
+        run: |
+          IMAGE_TAG=${GITHUB_SHA:0:8}
+          BRANCH_NAME=${GITHUB_REF_NAME}
+          echo "Triggered branch: $BRANCH_NAME"
+
+          # Path to your deployment.yaml (adjust if in subfolder)
+          DEPLOYMENT_FILE=./gitops/deployment.yaml
+
+          # Update image tag in deployment.yaml
+          sed -i "s|image:.*|image: ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG|g" $DEPLOYMENT_FILE
+
+          # Commit and push changes using GITHUB_TOKEN
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+          git add $DEPLOYMENT_FILE
+          git commit -m "Update image to $IMAGE_TAG"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
