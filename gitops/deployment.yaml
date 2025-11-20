@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: 273354650934.dkr.ecr.ap-south-1.amazonaws.com/nodesjs:81cc2ff3
+          image: 273354650934.dkr.ecr.ap-south-1.amazonaws.com/nodesjs:3974a024
           ports:
             - containerPort: 3000
       imagePullSecrets:
