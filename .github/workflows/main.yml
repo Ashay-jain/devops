@@ -71,4 +71,4 @@ jobs:
           git config --global user.name "github-actions"
           git add $DEPLOYMENT_FILE
           git commit -m "Update image to $IMAGE_TAG"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ashay-jain/devops.git HEAD:$BRANCH_NAME
